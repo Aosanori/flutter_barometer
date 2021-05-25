@@ -22,9 +22,12 @@ public class FlutterBarometerPlugin implements FlutterPlugin, MethodCallHandler 
     channel.setMethodCallHandler(this);
   }
 
+  // こいつが呼ばれる
   @Override
   public void onMethodCall(@NonNull MethodCall call, @NonNull Result result) {
+    // getPlatFormVersionが呼ばれた時
     if (call.method.equals("getPlatformVersion")) {
+      // この値が返る
       result.success("Android " + android.os.Build.VERSION.RELEASE);
     } else {
       result.notImplemented();

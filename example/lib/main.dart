@@ -15,11 +15,17 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   String _platformVersion = 'Unknown';
+  dynamic? _currentPressure = 0.0;
 
   @override
   void initState() {
     super.initState();
     initPlatformState();
+    FlutterBarometer().currentPressueEvent.listen((event) {
+        setState(() {
+          _currentPressure = event;
+        });
+    });
   }
 
   // Platform messages are asynchronous, so we initialize in an async method.
@@ -52,7 +58,10 @@ class _MyAppState extends State<MyApp> {
           title: const Text('Plugin example app'),
         ),
         body: Center(
-          child: Text('Running on: $_platformVersion\n'),
+          child: Column(children: [
+            Text('Running on: $_platformVersion\n'),
+            Text(_currentPressure.toString())
+          ]),
         ),
       ),
     );
