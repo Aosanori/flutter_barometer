@@ -12,14 +12,9 @@ class FlutterBarometer {
     return version;
   }
 
-  static dynamic  _onPressureChanged = null;
+  static var _onPressureChanged;
 
-  static Stream<double?> get currentPressue async* {
-    final double? value = await _channel.invokeMethod('getCurrentPressure');
-    yield value;
-  }
-
-  Stream<double?> get currentPressueEvent {
+  static Stream<double?> get currentPressueEvent {
     if (_onPressureChanged == null) {
       _onPressureChanged = _barometerEventChannel.receiveBroadcastStream().map(
             (element) => element as double,

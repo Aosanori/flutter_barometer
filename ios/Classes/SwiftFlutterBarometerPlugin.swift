@@ -22,17 +22,20 @@ public class SwiftFlutterBarometerPlugin: NSObject, FlutterPlugin, FlutterStream
         getCurrentPressure()
     }
     
+    // EventChannel 初期化
     public func onListen(withArguments arguments: Any?, eventSink events: @escaping FlutterEventSink) -> FlutterError? {
         self.sinkOnChanged  = events
         listeningOnChanged = true
         return nil
     }
     
+    // EventChannel 終了処理
     public func onCancel(withArguments arguments: Any?) -> FlutterError? {
         listeningOnChanged = false
         return nil
     }
     
+    // EventChannel 値を流す
     public func onChanged(value: Double) {
         if listeningOnChanged {
             if let sink = self.sinkOnChanged {
