@@ -15,7 +15,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   String _platformVersion = 'Unknown';
-  double? _currentPressure = 0.0;
+  double _currentPressure = 0.0;
 
   @override
   void initState() {
@@ -61,8 +61,16 @@ class _MyAppState extends State<MyApp> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text('Running on: $_platformVersion\n'),
-              Text('$_currentPressure hPa')
+              Text(
+                'Running on: $_platformVersion\n',
+                style: TextStyle(fontSize: 30),
+              ),
+              Text(
+                '${(_currentPressure * 1000).round() / 1000} hPa',
+                style: TextStyle(
+                  fontSize: 70,
+                ),
+              )
             ],
           ),
         ),

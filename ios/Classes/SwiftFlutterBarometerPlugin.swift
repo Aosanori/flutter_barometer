@@ -8,18 +8,35 @@ public class SwiftFlutterBarometerPlugin: NSObject, FlutterPlugin, FlutterStream
     var sinkOnChanged: FlutterEventSink?
     var listeningOnChanged = false
     
+    override init() {
+        super.init()
+        altimeter = CMAltimeter()
+        getCurrentPressure()
+    }
+    
+    private func getCurrentPressure() {
+        if(CMAltimeter.isRelativeAltitudeAvailable()) {
+            altimeter!.startRelativeAltitudeUpdates(
+                to: OperationQueue.main,
+                withHandler:
+                    {data, error in
+                        if error == nil {
+                            let pressure:Double = data!.pressure.doubleValue
+                            //let altitude:Double = data!.relativeAltitude.doubleValue
+                            self.pressure =  pressure * 10
+                            self.onChanged(value: self.pressure);
+                        }
+                    }
+            )
+        }
+    }
+    
     public static func register(with registrar: FlutterPluginRegistrar) {
         let channel = FlutterMethodChannel(name: "flutter_barometer", binaryMessenger: registrar.messenger())
         let stream = FlutterEventChannel(name: "plugins.flutter.io/sensors/barometer", binaryMessenger: registrar.messenger())
         let instance = SwiftFlutterBarometerPlugin()
         registrar.addMethodCallDelegate(instance, channel: channel)
         stream.setStreamHandler(instance)
-    }
-    
-    override init() {
-        super.init()
-        altimeter = CMAltimeter()
-        getCurrentPressure()
     }
     
     // EventChannel 初期化
@@ -41,21 +58,6 @@ public class SwiftFlutterBarometerPlugin: NSObject, FlutterPlugin, FlutterStream
             if let sink = self.sinkOnChanged {
                 sink(value)
             }
-        }
-    }
-    
-    private func getCurrentPressure() {
-        if(CMAltimeter.isRelativeAltitudeAvailable()) {
-            altimeter!.startRelativeAltitudeUpdates(to: OperationQueue.main, withHandler:
-                                                        {data, error in
-                                                            if error == nil {
-                                                                let pressure:Double = data!.pressure.doubleValue
-                                                                //let altitude:Double = data!.relativeAltitude.doubleValue
-                                                                self.pressure =  pressure * 10
-                                                                self.onChanged(value: self.pressure);
-                                                            }
-                                                        }
-            )
         }
     }
     
