@@ -55,15 +55,16 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Plugin example app'),
+          title: const Text('flutter_barometer'),
         ),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-            Text('Running on: $_platformVersion\n'),
-            Text('$_currentPressure hPa')
-          ]),
+              Text('Running on: $_platformVersion\n'),
+              Text('$_currentPressure hPa')
+            ],
+          ),
         ),
       ),
     );

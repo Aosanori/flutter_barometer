@@ -44,7 +44,7 @@ public class SwiftFlutterBarometerPlugin: NSObject, FlutterPlugin, FlutterStream
         }
     }
     
-    func getCurrentPressure() {
+    private func getCurrentPressure() {
         if(CMAltimeter.isRelativeAltitudeAvailable()) {
             altimeter!.startRelativeAltitudeUpdates(to: OperationQueue.main, withHandler:
                                                         {data, error in
