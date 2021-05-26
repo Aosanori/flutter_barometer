@@ -2,6 +2,7 @@ package com.example.flutter_barometer;
 
 import androidx.annotation.NonNull;
 
+import io.flutter.embedding.android.FlutterActivity;
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.plugin.common.EventChannel;
 import io.flutter.plugin.common.MethodCall;
@@ -10,7 +11,7 @@ import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
 
 /** FlutterBarometerPlugin */
-public class FlutterBarometerPlugin implements FlutterPlugin, MethodCallHandler {
+public class FlutterBarometerPlugin extends FlutterActivity implements FlutterPlugin, MethodCallHandler{
   /// The MethodChannel that will the communication between Flutter and native Android
   ///
   /// This local reference serves to register the plugin with the Flutter Engine and unregister it
@@ -24,6 +25,17 @@ public class FlutterBarometerPlugin implements FlutterPlugin, MethodCallHandler 
   public void onAttachedToEngine(@NonNull FlutterPluginBinding flutterPluginBinding) {
     channel = new MethodChannel(flutterPluginBinding.getBinaryMessenger(), "flutter_barometer");
     channel.setMethodCallHandler(this);
+    stream = new EventChannel(flutterPluginBinding.getBinaryMessenger(),"plugins.flutter.io/sensors/barometer");
+    stream.setStreamHandler(new EventChannel.StreamHandler() {
+      @Override
+      public void onListen(Object args, EventChannel.EventSink events) {
+
+      }
+      @Override
+      public void onCancel(Object args) {
+
+      }
+    });
   }
 
   // こいつが呼ばれる
