@@ -1,4 +1,4 @@
-# flutter_barometer
+# flutter_barometer_plugin
 
 A new flutter plugin project.
 
