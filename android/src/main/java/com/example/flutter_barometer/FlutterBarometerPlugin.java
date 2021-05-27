@@ -19,6 +19,7 @@ import io.flutter.plugin.common.MethodChannel.Result;
 /** FlutterBarometerPlugin */
 public class FlutterBarometerPlugin implements FlutterPlugin, MethodCallHandler, SensorEventListener{
   private MethodChannel channel;
+  private  EventChannel stream;
   private SensorManager sensorManager;
   private EventChannel.EventSink sinkOnChanged;
   public Sensor pressureSensor;
@@ -76,7 +77,7 @@ public class FlutterBarometerPlugin implements FlutterPlugin, MethodCallHandler,
     applicationContext = flutterPluginBinding.getApplicationContext();
     channel = new MethodChannel(flutterPluginBinding.getBinaryMessenger(), "flutter_barometer");
     channel.setMethodCallHandler(this);
-    final EventChannel stream = new EventChannel(flutterPluginBinding.getBinaryMessenger(), "pressureStream");
+    stream = new EventChannel(flutterPluginBinding.getBinaryMessenger(), "pressureStream");
     stream.setStreamHandler(handler());
   }
 
