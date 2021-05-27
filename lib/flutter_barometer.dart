@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:flutter/services.dart';
 
@@ -10,13 +9,6 @@ class FlutterBarometer {
       EventChannel('pressureStream');
 
   static var _onPressureChanged;
-
-  static void initializePressureSensor() async {
-    if (Platform.isAndroid) {
-      final result = await _channel.invokeMethod('initializePressureSensor');
-      print(result);
-    }
-  }
 
   static Future<String?> get platformVersion async {
     final String? version = await _channel.invokeMethod('getPlatformVersion');
