@@ -33,7 +33,7 @@ public class SwiftFlutterBarometerPlugin: NSObject, FlutterPlugin, FlutterStream
     
     public static func register(with registrar: FlutterPluginRegistrar) {
         let channel = FlutterMethodChannel(name: "flutter_barometer", binaryMessenger: registrar.messenger())
-        let stream = FlutterEventChannel(name: "plugins.flutter.io/sensors/barometer", binaryMessenger: registrar.messenger())
+        let stream = FlutterEventChannel(name: "pressureStream", binaryMessenger: registrar.messenger())
         let instance = SwiftFlutterBarometerPlugin()
         registrar.addMethodCallDelegate(instance, channel: channel)
         stream.setStreamHandler(instance)
