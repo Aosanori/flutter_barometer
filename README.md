@@ -27,6 +27,63 @@ Now in your Dart code, you can use:
 
 `import 'package:flutter_barometer_plugin/flutter_barometer.dart';`
 
-## How to use 
+## Usage 
+
+### Example
+
+``` dart
+import 'package:flutter/material.dart';
+import 'dart:async';
+
+import 'package:flutter/services.dart';
+import 'package:flutter_barometer/flutter_barometer.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  double _currentPressure = 0.0;
+
+  @override
+  void initState() {
+    super.initState();
+    FlutterBarometer.currentPressueEvent.listen((event) {
+      setState(() {
+        _currentPressure = event;
+      });
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('flutter_barometer'),
+        ),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                '${(_currentPressure * 1000).round() / 1000} hPa',
+                style: TextStyle(
+                  fontSize: 70,
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+```
 
 
