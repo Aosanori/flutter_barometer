@@ -21,7 +21,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     initPlatformState();
-    FlutterBarometer.currentPressueEvent.listen((event) {
+    FlutterBarometer.currentPressureEvent.listen((event) {
       setState(() {
         _currentPressure = event;
       });
@@ -70,7 +70,7 @@ class _MyAppState extends State<MyApp> {
                 style: TextStyle(
                   fontSize: 70,
                 ),
-              )
+              ),
             ],
           ),
         ),
