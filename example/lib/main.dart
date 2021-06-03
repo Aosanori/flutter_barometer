@@ -15,7 +15,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   String _platformVersion = 'Unknown';
-  double _currentPressure = 0.0;
+  BarometerValue _currentPressure = BarometerValue(0.0);
 
   @override
   void initState() {
@@ -66,9 +66,33 @@ class _MyAppState extends State<MyApp> {
                 style: TextStyle(fontSize: 30),
               ),
               Text(
-                '${(_currentPressure * 1000).round() / 1000} hPa',
+                '${(_currentPressure.hectpascal * 1000).round() / 1000} hPa',
                 style: TextStyle(
                   fontSize: 70,
+                ),
+              ),
+              Text(
+                '${(_currentPressure.inchOfMercury * 1000).round() / 1000} inHg',
+                style: TextStyle(
+                  fontSize: 30,
+                ),
+              ),
+              Text(
+                '${(_currentPressure.millimeterOfMercury * 1000).round() / 1000} mmHg',
+                style: TextStyle(
+                  fontSize: 30,
+                ),
+              ),
+              Text(
+                '${(_currentPressure.poundsSquareInch * 1000).round() / 1000} psi',
+                style: TextStyle(
+                  fontSize: 30,
+                ),
+              ),
+              Text(
+                '${(_currentPressure.atm * 1000).round() / 1000} atm',
+                style: TextStyle(
+                  fontSize: 30,
                 ),
               ),
             ],

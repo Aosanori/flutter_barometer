@@ -17,7 +17,7 @@ This will add a line like this to your package's pubspec.yaml (and run an implic
 
 ``` yaml
 dependencies: 
-  flutter_barometer_plugin: ^0.0.1
+  flutter_barometer_plugin: ^0.0.1+3
 ```
 
 Alternatively, your editor might support flutter pub get. Check the docs for your editor to learn more.
@@ -48,7 +48,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  double _currentPressure = 0.0;
+  BarometerValue _currentPressure = BarometerValue(0.0);
 
   @override
   void initState() {
@@ -72,11 +72,35 @@ class _MyAppState extends State<MyApp> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                '${(_currentPressure * 1000).round() / 1000} hPa',
+                '${(_currentPressure.hectpascal * 1000).round() / 1000} hPa',
                 style: TextStyle(
                   fontSize: 70,
                 ),
-              )
+              ),
+              Text(
+                '${(_currentPressure.inchOfMercury * 1000).round() / 1000} inHg',
+                style: TextStyle(
+                  fontSize: 30,
+                ),
+              ),
+              Text(
+                '${(_currentPressure.millimeterOfMercury * 1000).round() / 1000} mmHg',
+                style: TextStyle(
+                  fontSize: 30,
+                ),
+              ),
+              Text(
+                '${(_currentPressure.poundsSquareInch * 1000).round() / 1000} psi',
+                style: TextStyle(
+                  fontSize: 30,
+                ),
+              ),
+              Text(
+                '${(_currentPressure.atm * 1000).round() / 1000} atm',
+                style: TextStyle(
+                  fontSize: 30,
+                ),
+              ),
             ],
           ),
         ),

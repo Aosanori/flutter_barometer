@@ -69,7 +69,7 @@ public class SwiftFlutterBarometerPlugin: NSObject, FlutterPlugin, FlutterStream
             result("iOS " + UIDevice.current.systemVersion)
         }
         
-        if call.method == "getCurrentPressure"{
+        if call.method == "getCurrentPressure" {
             result(self.pressure)
         }
     }

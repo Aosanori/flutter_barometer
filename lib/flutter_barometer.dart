@@ -15,63 +15,29 @@ class FlutterBarometer {
     return version;
   }
 
-  static Future<double> get currentPressure async {
+  static Future<BarometerValue> get currentPressure async {
     final pressure = await _channel.invokeMethod('getCurrentPressure');
-    return pressure;
+    return BarometerValue(pressure);
   }
 
   //output as hPa
-  static Stream<double> get currentPressureEvent {
+  static Stream<BarometerValue> get currentPressureEvent {
     if (_onPressureChanged == null) {
       _onPressureChanged = _barometerEventChannel.receiveBroadcastStream().map(
-            (element) => element as double,
+            (element) => BarometerValue(element as double),
           );
     }
     return _onPressureChanged;
   }
 
-  //output as inHg
-  // ignore: non_constant_identifier_names
-  static Stream<double> get currentPressureEventAs_inHg {
-    if (_onPressureChanged == null) {
-      _onPressureChanged = _barometerEventChannel.receiveBroadcastStream().map(
-            (element) => (element as double) / 33.8639,
-          );
-    }
-    return _onPressureChanged;
-  }
+}
 
-  //output as mmHg
-  // ignore: non_constant_identifier_names
-  static Stream<double> get currentPressureEventAs_mmHg {
-    if (_onPressureChanged == null) {
-      _onPressureChanged = _barometerEventChannel.receiveBroadcastStream().map(
-            (element) => (element as double) / 1.33322,
-          );
-    }
-    return _onPressureChanged;
-  }
-  // output as psi
-  // ignore: non_constant_identifier_names
-  static Stream<double> get currentPressureEventAs_psi {
-    if (_onPressureChanged == null) {
-      _onPressureChanged = _barometerEventChannel.receiveBroadcastStream().map(
-            (element) => (element as double) / 68.9476,
-          );
-    }
-    return _onPressureChanged;
-  }
+class BarometerValue {
+  const BarometerValue(this.hectpascal);
+  final double hectpascal;
 
-  // output as atm
-  // ignore: non_constant_identifier_names
-  static Stream<double> get currentPressureEventAs_atm {
-    if (_onPressureChanged == null) {
-      _onPressureChanged = _barometerEventChannel.receiveBroadcastStream().map(
-            (element) => (element as double) / 1013.25,
-          );
-    }
-    return _onPressureChanged;
-  }
-
-
+  double get inchOfMercury => hectpascal / 33.8639;
+  double get millimeterOfMercury => hectpascal / 1.33322;
+  double get poundsSquareInch => hectpascal / 68.9476;
+  double get atm => hectpascal / 1013.25;
 }
