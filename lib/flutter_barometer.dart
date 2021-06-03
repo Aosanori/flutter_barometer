@@ -20,7 +20,6 @@ class FlutterBarometer {
     return BarometerValue(pressure);
   }
 
-  //output as hPa
   static Stream<BarometerValue> get currentPressureEvent {
     if (_onPressureChanged == null) {
       _onPressureChanged = _barometerEventChannel.receiveBroadcastStream().map(

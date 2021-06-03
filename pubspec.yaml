@@ -1,6 +1,6 @@
-name: flutter_barometer
+name: flutter_barometer_plugin
 description: This plugin makes it easier to use barometer of devices.
-version: 0.0.1+2
+version: 0.0.1+3
 homepage: https://github.com/Aosanori/flutter_barometer.git
 
 environment:
